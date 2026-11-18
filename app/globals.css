@@ -1,26 +1,210 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Almarena Display";
+  src: url("/fonts/AlmarenaDisplayRegular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --primary: #ee7209;
+  --heading: #1c1c1c;
+  --body: #424b55;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-primary: var(--primary);
+  --color-heading: var(--heading);
+  --color-body: var(--body);
+  --font-primary: var(--font-geist), Arial, sans-serif;
+  --font-secondary: "Almarena Display", Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@utility text-trim {
+  text-box: trim-both cap alphabetic;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply font-primary font-normal overflow-x-hidden bg-background;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    @apply font-primary;
+  }
+}
+
+@layer container {
+  .container {
+    @apply w-full max-w-[1350px] mx-auto px-5;
+  }
+
+  .container-header {
+    @apply w-full max-w-[1395.25px] mx-auto px-5;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Banner Section */
+
+.banner__section {
+  @apply relative w-full min-h-[560px] lg:min-h-[600px] h-[calc(100svh-72px)] lg:h-[calc(100svh-97px)] overflow-hidden;
+}
+
+.banner__media {
+  @apply absolute inset-0;
+}
+
+.banner__media video {
+  @apply size-full object-cover object-bottom;
+}
+
+.banner__overlay {
+  @apply absolute inset-0 bg-black/30;
+}
+
+.banner__content {
+  @apply relative h-full;
+}
+
+.banner__container {
+  @apply flex flex-col items-center h-full;
+}
+
+.banner__main {
+  @apply flex flex-1 items-center justify-center w-full;
+}
+
+.banner__inner {
+  @apply w-full max-w-[668px] text-center;
+}
+
+.banner__content h1 {
+  @apply font-secondary text-trim text-white text-[36px] leading-10 tracking-[-0.5px] sm:text-[44px] sm:leading-[50px] md:text-[52px] md:leading-[58px] lg:text-[60px] lg:leading-[64px] lg:tracking-[-1px];
+}
+
+.banner__search {
+  @apply max-w-[598px] mx-auto mt-6 lg:mt-10;
+}
+
+/* Banner Trust Bar */
+
+.banner__trust {
+  @apply flex flex-col items-stretch gap-4 pb-8 md:flex-row md:items-end md:gap-5 lg:pb-[49px];
+}
+
+.banner__trust-item {
+  @apply flex items-center gap-3;
+}
+
+.banner__trust-item--rating {
+  @apply md:items-end;
+}
+
+.banner__trust-text {
+  @apply flex flex-col gap-3;
+}
+
+.banner__stars {
+  @apply flex gap-[5.47px];
+}
+
+.banner__stars img {
+  @apply size-[13.42px];
+}
+
+.banner__star-half {
+  @apply relative size-[13.42px] shrink-0;
+}
+
+.banner__star-half img {
+  @apply absolute inset-0;
+}
+
+.banner__star-bg {
+  @apply opacity-30;
+}
+
+.banner__star-fill {
+  clip-path: inset(0 50% 0 0);
+}
+
+.banner__trust-title,
+.banner__trust-subtitle {
+  @apply font-primary text-trim leading-6 text-white;
+}
+
+.banner__trust-title {
+  @apply text-base font-semibold;
+}
+
+.banner__trust-subtitle {
+  @apply text-sm font-medium text-white/70;
+}
+
+.banner__divider {
+  @apply hidden md:block w-px h-[35px] bg-white/30;
+}
+
+.banner__divider {
+  @apply block h-px w-[120px] bg-white/30 md:h-[35px] md:w-px;
+}
+
+/* Features Bar Section */
+
+.features-bar__section {
+  @apply w-full bg-[#F7F7F8] py-8 lg:py-12;
+}
+
+.features-bar__list {
+  @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10;
+}
+
+.features-bar__item {
+  @apply flex items-center gap-3;
+}
+
+.features-bar__icon {
+  @apply flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#ECECEE];
+}
+
+.features-bar__icon img {
+  @apply size-6;
+}
+
+.features-bar__text {
+  @apply flex flex-col gap-4;
+}
+
+.features-bar__title {
+  @apply font-primary text-trim text-sm font-medium uppercase text-heading;
+}
+
+.features-bar__description {
+  @apply font-primary text-trim text-sm font-normal leading-5 text-body max-w-[251px];
 }

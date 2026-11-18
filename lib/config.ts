@@ -1,5 +1,5 @@
 export const BASE_URL = (
-  process.env.NEXT_PUBLIC_BASE_URL ?? "https://mountain-trail-nepal.com"
+  process.env.NEXT_PUBLIC_BASE_URL ?? "https://mountain-trail-nepal.com/"
 ).replace(/\/+$/, "");
 
 export const API_BASE_URL = (
