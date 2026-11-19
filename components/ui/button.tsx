@@ -21,14 +21,14 @@ type LinkButtonProps = ButtonStyleProps &
 type ButtonProps = NativeButtonProps | LinkButtonProps;
 
 const variantClasses: Record<ButtonVariant, string> = {
-  // Figma: fill #EE7209, gap 10px
-  primary: "bg-primary text-white gap-[10px] focus-visible:outline-primary",
+  primary:
+    "bg-primary text-white gap-[10px] hover:brightness-110 focus-visible:outline-primary",
 
-  // Figma: border 1px #FFFFFF 30%, gap 8px
-  outline: "border border-white/30 text-white gap-2 focus-visible:outline-white",
+  outline:
+    "border border-white/30 text-white gap-2 hover:border-white/60 hover:bg-white/[0.08] focus-visible:outline-white",
 
-  // Figma: fill #FFFFFF 16%, gap 8px
-  glass: "bg-white/[0.16] text-white gap-2 focus-visible:outline-white",
+  glass:
+    "bg-white/[0.16] text-white gap-2 hover:bg-white/[0.26] focus-visible:outline-white",
 };
 
 function isLinkButton(props: ButtonProps): props is LinkButtonProps {
@@ -36,7 +36,7 @@ function isLinkButton(props: ButtonProps): props is LinkButtonProps {
 }
 
 function getButtonClassName(variant: ButtonVariant, className: string) {
-  return `group/button inline-flex p-[18px] shrink-0 select-none items-center justify-center
+  return `btn-fx group/button relative isolate overflow-hidden inline-flex p-[18px] shrink-0 select-none items-center justify-center
     cursor-pointer rounded-[55px] px-5
     font-primary text-base font-medium leading-4 tracking-[-0.32px] antialiased whitespace-nowrap
     outline-none focus-visible:outline-2 focus-visible:outline-offset-2
@@ -45,7 +45,7 @@ function getButtonClassName(variant: ButtonVariant, className: string) {
     ${variantClasses[variant]} ${className}`.replace(/\s+/g, " ");
 }
 
-function ArrowIcon() {
+function ArrowSvg() {
   return (
     <svg
       width="16"
@@ -53,7 +53,6 @@ function ArrowIcon() {
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
       className="shrink-0"
     >
       <path
@@ -61,6 +60,16 @@ function ArrowIcon() {
         fill="currentColor"
       />
     </svg>
+  );
+}
+
+// Two copies of the arrow: the hover effect (see globals.css) swaps them.
+function ArrowIcon() {
+  return (
+    <span aria-hidden="true" className="btn-arrow">
+      <ArrowSvg />
+      <ArrowSvg />
+    </span>
   );
 }
 

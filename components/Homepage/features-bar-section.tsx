@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Reveal } from "@/components/ui/reveal";
 import type { HomepageFeatures } from "@/lib/api/homepage";
 
 const FALLBACK_FEATURES: HomepageFeatures = {
@@ -7,24 +8,24 @@ const FALLBACK_FEATURES: HomepageFeatures = {
     {
       title: "Journeys for every budget",
       description:
-        "incredible deals & prices find wellness packages at unbelieable prices",
-      icon: "/images/icons/wallet.svg",
+        "Incredible deals and prices. Find wellness packages at unbelievable prices.",
+      icon: "/images/wallet.svg",
     },
     {
       title: "Personal guidance from experts",
       description:
-        "Talk to an expert our wellness consultants are available 7 days a week",
-      icon: "/images/icons/chat.svg",
+        "Talk to an expert. Our wellness consultants are available 7 days a week.",
+      icon: "/images/chat.svg",
     },
     {
       title: "Flexible payment options",
       description: "Easy payment options for a stress-free booking.",
-      icon: "/images/icons/card.svg",
+      icon: "/images/card.svg",
     },
     {
       title: "100% carbon offset",
-      description: "Leave no trace philosophy & eco-lodges only.",
-      icon: "/images/icons/leaf.svg",
+      description: "Leave no trace philosophy and eco-lodges only.",
+      icon: "/images/leaf.svg",
     },
   ],
 };
@@ -41,20 +42,30 @@ export function FeaturesBarSection({
     : FALLBACK_FEATURES.items;
 
   return (
-    <section className="features-bar__section">
+    <section className="features-bar__section" aria-label="Why book with us">
       <div className="container">
         <ul className="features-bar__list">
-          {items.map((item) => (
-            <li key={item.title} className="features-bar__item">
-              <span className="features-bar__icon">
-                <Image src={item.icon} alt="" width={24} height={24} />
+          {items.map((item, i) => (
+            <Reveal
+              as="li"
+              key={`${item.title}-${i}`}
+              className="features-bar__item"
+              delay={i * 150}
+            >
+              <span className="features-bar__icon" aria-hidden="true">
+                <Image
+                  src={item.icon}
+                  alt={`${item.title} icon`}
+                  width={24}
+                  height={24}
+                />
               </span>
 
               <div className="features-bar__text">
-                <h3 className="features-bar__title">{item.title}</h3>
+                <p className="features-bar__title">{item.title}</p>
                 <p className="features-bar__description">{item.description}</p>
               </div>
-            </li>
+            </Reveal>
           ))}
         </ul>
       </div>

@@ -52,7 +52,7 @@ body {
 
 @layer container {
   .container {
-    @apply w-full max-w-[1350px] mx-auto px-5;
+    @apply w-full max-w-[1359px] mx-auto px-5;
   }
 
   .container-header {
@@ -67,6 +67,100 @@ html {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+}
+
+/* Button hover effects*/
+
+.btn-fx {
+  --arrow-leave: 360ms; 
+  --arrow-enter: 600ms; 
+  --arrow-gap: 300ms; 
+  --shine-time: 1300ms;
+
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  transition:
+    background-color 400ms ease-out,
+    border-color 400ms ease-out,
+    filter 400ms ease-out;
+}
+
+.btn-fx::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 0.35),
+    transparent
+  );
+  transform: translateX(-150%) skewX(-20deg);
+}
+
+.btn-arrow {
+  position: relative;
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.btn-arrow svg:first-child {
+  transition:
+    transform var(--arrow-enter) var(--ease-out) var(--arrow-gap),
+    opacity var(--arrow-enter) var(--ease-out) var(--arrow-gap);
+}
+
+.btn-arrow svg:last-child {
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition:
+    transform var(--arrow-leave) var(--ease-soft),
+    opacity var(--arrow-leave) var(--ease-soft);
+}
+
+
+@media (hover: hover) {
+  .btn-fx:hover::after {
+    transform: translateX(300%) skewX(-20deg);
+    transition: transform var(--shine-time) cubic-bezier(0.45, 0, 0.2, 1);
+  }
+
+  .btn-fx:hover .btn-arrow svg:first-child {
+    transform: translateX(100%);
+    opacity: 0;
+    transition:
+      transform var(--arrow-leave) var(--ease-soft),
+      opacity var(--arrow-leave) var(--ease-soft);
+  }
+
+  .btn-fx:hover .btn-arrow svg:last-child {
+    transform: none;
+    opacity: 1;
+    transition:
+      transform var(--arrow-enter) var(--ease-out) var(--arrow-gap),
+      opacity var(--arrow-enter) var(--ease-out) var(--arrow-gap);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-fx,
+  .btn-arrow svg {
+    transition: none !important;
+  }
+
+  .btn-fx::after {
+    display: none;
   }
 }
 
@@ -172,13 +266,13 @@ html {
 }
 
 .banner__divider {
-  @apply block h-px w-[120px] bg-white/30 md:h-[35px] md:w-px;
+  @apply block h-px w-[208px] bg-white/30 md:h-[35px] md:w-px;
 }
 
 /* Features Bar Section */
 
 .features-bar__section {
-  @apply w-full bg-[#F7F7F8] py-8 lg:py-12;
+  @apply w-full bg-[#F7F7F8] py-8 lg:py-20;
 }
 
 .features-bar__list {
@@ -202,9 +296,220 @@ html {
 }
 
 .features-bar__title {
-  @apply font-primary text-trim text-sm font-medium uppercase text-heading;
+  @apply font-primary text-trim text-[13px] font-medium uppercase text-heading;
 }
 
 .features-bar__description {
-  @apply font-primary text-trim text-sm font-normal leading-5 text-body max-w-[251px];
+  @apply font-primary text-trim text-[13px] font-normal leading-5 text-body max-w-[251px];
+}
+
+/* Experiences Section */
+
+.experiences__section {
+  @apply relative overflow-hidden py-12 md:py-16 lg:py-20;
+}
+
+.experiences__container {
+  @apply relative z-10;
+}
+
+.experiences__leaf {
+  @apply pointer-events-none absolute z-0 hidden select-none opacity-[0.35] min-[1700px]:block;
+}
+
+.experiences__leaf--left {
+  @apply -left-[312px] -top-[55px] w-[239px] h-[253px];
+}
+
+.experiences__leaf--right {
+  @apply -right-[320px] -top-[55px] w-[183px] h-[183px];
+}
+
+.experiences__grid {
+  @apply grid w-full grid-cols-1 gap-5 md:grid-cols-2 md:gap-6 lg:grid-cols-3;
+}
+
+.experiences__card {
+  @apply flex h-full flex-col;
+}
+
+.experiences__media {
+  @apply relative aspect-[437/283] w-full overflow-hidden;
+}
+
+.experiences__image {
+  @apply object-cover;
+}
+
+.experiences__badge {
+  @apply absolute left-4 top-4 flex h-7 items-center rounded-full bg-white px-[10px] font-primary text-trim text-sm font-medium text-body lg:left-5;
+}
+
+.experiences__body {
+  @apply flex flex-1 flex-col gap-6 rounded-br-[28px] bg-[#F7F7F8] px-5 py-6 lg:gap-[30px] lg:rounded-br-[40px] lg:py-8;
+}
+
+.experiences__text {
+  @apply flex flex-1 flex-col gap-4 lg:gap-6;
+}
+
+.experiences__title {
+  @apply font-primary text-trim text-lg font-normal leading-6 tracking-[-0.32px] text-heading lg:text-xl;
+}
+
+.experiences__description {
+  @apply font-primary text-trim text-base font-normal leading-6 text-body;
+}
+
+.experiences__link {
+  @apply inline-flex items-center gap-2 self-start font-primary text-trim text-sm font-medium uppercase leading-[26px] text-primary;
+}
+
+/* .experiences__arrow {
+  @apply shrink-0 transition-transform duration-200;
+} */
+
+/* .experiences__link:hover .experiences__arrow {
+  @apply translate-x-0.5;
+} */
+
+.experiences__cta {
+  @apply mt-8 flex justify-center md:mt-10 lg:mt-[52px];
+}
+
+/* Journeys Section */
+
+/* .journeys__section {
+  @apply pt-0 py-12 md:py-16 lg:py-20;
+} */
+
+.journeys__grid {
+  @apply grid w-full grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-6 lg:grid-cols-4;
+}
+
+.journeys__media {
+  @apply relative aspect-[322/369] w-full overflow-hidden rounded-br-[28px] lg:rounded-br-[40px];
+}
+
+.journeys__image {
+  @apply object-cover transition-transform duration-500 group-hover:scale-105;
+}
+
+.journeys__body {
+  @apply flex flex-col gap-5;
+}
+
+.journeys__meta {
+  @apply flex items-center gap-2;
+}
+
+.journeys__meta-item {
+  @apply flex items-center gap-1.5 font-primary text-trim text-sm font-medium leading-6;
+}
+
+.journeys__meta-item--duration {
+  @apply text-[#9A4600];
+}
+
+.journeys__meta-item--level {
+  @apply text-[#02458B];
+}
+
+.journeys__icon {
+  @apply shrink-0;
+}
+
+.journeys__dot {
+  @apply size-[7px] shrink-0 rounded-full bg-[#949494];
+}
+
+.journeys__title {
+  @apply font-primary text-trim text-lg font-normal leading-6 tracking-[-0.32px] text-heading lg:text-xl;
+}
+
+.journeys__card {
+  @apply flex flex-col gap-6;
+}
+
+/* Why Travel With Us Section */
+
+.why-travel__section {
+  @apply bg-[#EDEDED] bg-cover bg-center;
+  background-image: url("/images/why/paper-texture.jpg");
+}
+
+.why-travel__inner {
+  @apply mx-auto flex w-full max-w-[1086px] flex-col items-center;
+}
+
+.why-travel__grid {
+  @apply grid w-full grid-cols-1 gap-4 mb-[52px] sm:grid-cols-2 sm:gap-6 lg:grid-cols-3;
+}
+
+.why-travel__card {
+  @apply relative flex h-full flex-col items-center gap-[30px] overflow-hidden rounded-[20px] bg-white p-6 text-center;
+}
+
+.why-travel__card--active {
+  @apply bg-[#02458B];
+}
+
+.why-travel__leaf {
+  @apply pointer-events-none absolute -bottom-8 -left-8 select-none opacity-10;
+}
+
+.why-travel__icon {
+  @apply relative z-10 flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#ECECEE];
+}
+
+.why-travel__card--active .why-travel__icon {
+  @apply bg-[#ECECEE]/10;
+}
+
+.why-travel__text {
+  @apply relative z-10 flex flex-col gap-[22px];
+}
+
+.why-travel__title {
+  @apply font-primary text-trim text-xl font-normal leading-6 tracking-[-0.32px] text-heading;
+}
+
+.why-travel__description {
+  @apply font-primary text-trim text-base font-normal leading-6 text-body;
+}
+
+.why-travel__card--active .why-travel__title {
+  @apply text-white;
+}
+
+.why-travel__card--active .why-travel__description {
+  @apply text-white/90;
+}
+
+.why-travel__card {
+  @apply relative flex h-full flex-col items-center gap-[30px] overflow-hidden rounded-[20px] bg-white p-6 text-center transition-colors duration-300;
+}
+
+.why-travel__card--active {
+  @apply bg-[#02458B];
+}
+
+.why-travel__leaf {
+  @apply pointer-events-none absolute bottom-0 left-0 select-none opacity-0 transition-opacity duration-300;
+}
+
+.why-travel__card--active .why-travel__leaf {
+  @apply opacity-10;
+}
+
+.why-travel__icon {
+  @apply relative z-10 flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#ECECEE] transition-colors duration-300;
+}
+
+.why-travel__title {
+  @apply font-primary text-trim text-xl font-normal leading-6 tracking-[-0.32px] text-heading transition-colors duration-300;
+}
+
+.why-travel__description {
+  @apply font-primary text-trim text-base font-normal leading-6 text-body transition-colors duration-300;
 }

@@ -1,5 +1,9 @@
 import { SiteHeader } from "@/components/layouts/site-header";
 import { BannerSection } from "@/components/Homepage/hero-section";
+import { FeaturesBarSection } from "@/components/Homepage/features-bar-section";
+import { ExperiencesSection } from "@/components/Homepage/experiences-section";
+import { JourneysSection } from "@/components/Homepage/journeys-section";
+import { WhyTravelSection } from "@/components/Homepage/why-travel-section";
 import {
   getHeaderData,
   getViberHref,
@@ -7,7 +11,6 @@ import {
   mapHeaderMenu,
 } from "@/lib/api/header";
 import { getHomepageData } from "@/lib/api/homepage";
-import { FeaturesBarSection } from "@/lib/api/homepage";
 
 export default async function Home() {
   const [header, homepage] = await Promise.all([
@@ -25,7 +28,10 @@ export default async function Home() {
       />
 
       <BannerSection hero={homepage?.hero} />
-      <FeaturesBarSection features={data?.features} />
-    </>
+      <FeaturesBarSection features={homepage?.features} />
+      <ExperiencesSection experiences={homepage?.experiences} />
+      <JourneysSection journeys={homepage?.journeys}/>
+      <WhyTravelSection why-travel={homepage?.whyTravel} />  
+      </>
   );
 }
