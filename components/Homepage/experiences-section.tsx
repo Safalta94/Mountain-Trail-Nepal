@@ -2,11 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { Section, SectionHeading } from "@/components/layouts/section";
 import { Button } from "@/components/ui/button";
+import { DriftMedia } from "@/components/ui/drift-media";
 import { Reveal } from "@/components/ui/reveal";
 import type { HomepageExperiences } from "@/lib/api/homepage";
 
 const FALLBACK_EXPERIENCES: HomepageExperiences = {
-  section_type: "experiences",
   eyebrow: "Find your kind of experience",
   title: ["Explore experiences", "that inspire you"],
   description:
@@ -98,75 +98,92 @@ export function ExperiencesSection({
   experiences = FALLBACK_EXPERIENCES,
 }: ExperiencesSectionProps) {
   return (
-    <Section
-      id="experiences"
-      className="experiences__section"
-      containerClassName="experiences__container"
-    >
+  <Section
+    id="experiences"
+    className="experiences__section"
+  >
+    <div className="experiences__leaf experiences__leaf--left">
       <Image
         src="/images/leaf-left.svg"
         alt="Decorative leaf"
         aria-hidden="true"
         width={239}
         height={253}
-        className="experiences__leaf experiences__leaf--left"
       />
+    </div>
+    <div className="experiences__leaf experiences__leaf--right">
       <Image
         src="/images/leaf-right.svg"
         alt="Decorative leaf"
         aria-hidden="true"
         width={183}
         height={183}
-        className="experiences__leaf experiences__leaf--right"
       />
+    </div>
 
-      <Reveal>
-        <SectionHeading
-          eyebrow={experiences.eyebrow}
-          title={experiences.title}
-          description={experiences.description}
-        />
-      </Reveal>
+    <Reveal>
+      <SectionHeading
+        eyebrow={experiences.eyebrow}
+        title={experiences.title}
+        description={experiences.description}
+      />
+    </Reveal>
 
-      <div className="experiences__grid">
-        {experiences.items.map((item, i) => (
-          <Reveal
-            as="article"
-            key={item.href}
-            className="experiences__card"
-            delay={(i % 3) * 150}
-          >
-            <div className="experiences__media">
-              <Image
-                src={item.image}
-                alt={`${item.title} experience in Nepal`}
-                fill
-                sizes="(min-width: 1024px) 437px, (min-width: 768px) 50vw, 100vw"
-                className="experiences__image"
-              />
-              <span className="experiences__badge">
+    <div className="experiences__grid">
+      {experiences.items.map((item, i) => (
+        <Reveal
+          as="article"
+          key={item.href}
+          className="experiences__card"
+          delay={(i % 3) * 150}
+        >
+
+          <DriftMedia className="experiences__media">
+              <div className="experiences__drift">
+                <Image
+                  src={item.image}
+                  alt={`${item.title} experience in Nepal`}
+                  fill
+                  sizes="(min-width: 1024px) 437px, (min-width: 768px) 50vw, 100vw"
+                />
+              </div>
+              <div className="experiences__badge">
                 {item.trips_count} {item.trips_count === 1 ? "Trip" : "Trips"}
-              </span>
+              </div>
+            </DriftMedia>
+
+          {/* <div className="experiences__media">
+            <Image
+              src={item.image}
+              alt={`${item.title} experience in Nepal`}
+              fill
+              sizes="(min-width: 1024px) 437px, (min-width: 768px) 50vw, 100vw"
+            />
+            <div className="experiences__badge">
+              {item.trips_count} {item.trips_count === 1 ? "Trip" : "Trips"}
+            </div>
+          </div> */}
+
+          <div className="experiences__body">
+            <div className="experiences__text">
+              <h2>{item.title}</h2>
+              <p>{item.description}</p>
             </div>
 
-            <div className="experiences__body">
-              <div className="experiences__text">
-                <h2 className="experiences__title">{item.title}</h2>
-                <p className="experiences__description">{item.description}</p>
-              </div>
-
-              <Link href={item.href} className="experiences__link">
+            <div className="experiences__link">
+              <Link href={item.href}>
                 <span>{item.cta_label}</span>
                 <ArrowRight />
               </Link>
             </div>
-          </Reveal>
-        ))}
-      </div>
+          </div>
+        </Reveal>
+      ))}
+    </div>
 
-      <Reveal className="experiences__cta">
-        <Button href={experiences.cta.href}>{experiences.cta.label}</Button>
-      </Reveal>
-    </Section>
-  );
+    <Reveal className="experiences__cta">
+      <Button href={experiences.cta.href}>{experiences.cta.label}</Button>
+    </Reveal>
+  </Section>
+);
 }

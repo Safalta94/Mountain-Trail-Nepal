@@ -63,7 +63,6 @@ function ArrowSvg() {
   );
 }
 
-// Two copies of the arrow: the hover effect (see globals.css) swaps them.
 function ArrowIcon() {
   return (
     <span aria-hidden="true" className="btn-arrow">

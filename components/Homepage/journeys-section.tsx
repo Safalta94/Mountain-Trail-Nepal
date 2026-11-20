@@ -7,7 +7,6 @@ import type { HomepageJourneys } from "@/lib/api/homepage";
 const CLOCK_ICON = "/images/clock.svg";
 
 const FALLBACK_JOURNEYS: HomepageJourneys = {
-  section_type: "journeys",
   eyebrow: "Handpicked experiences",
   title: ["Journeys worth experiencing"],
   description:
@@ -56,66 +55,64 @@ export function JourneysSection({
   journeys = FALLBACK_JOURNEYS,
 }: JourneysSectionProps) {
   return (
-    <Section
-      id="journeys"
-      className="pt-0"
-      containerClassName="journeys__container"
-    >
-      <Reveal>
-        <SectionHeading
-          eyebrow={journeys.eyebrow}
-          title={journeys.title}
-          description={journeys.description}
-        />
-      </Reveal>
+  <Section
+    id="journeys"
+    className="pt-0 md:pt-0"
+  >
+    <Reveal>
+      <SectionHeading
+        eyebrow={journeys.eyebrow}
+        title={journeys.title}
+        description={journeys.description}
+      />
+    </Reveal>
 
-      <div className="journeys__grid">
-        {journeys.items.map((item, i) => (
-          <Reveal key={item.href} className="h-full" delay={i * 150}>
-            <Link href={item.href} className="journeys__card">
+    <div className="journeys__grid">
+      {journeys.items.map((item, i) => (
+        <Reveal key={item.href} className="h-full" delay={i * 150}>
+          <div className="journeys__card">
+            <Link href={item.href}>
               <div className="journeys__media">
                 <Image
                   src={item.image}
                   alt={`${item.title} in Nepal`}
                   fill
                   sizes="(min-width: 1024px) 322px, (min-width: 768px) 50vw, 100vw"
-                  className="journeys__image"
                 />
               </div>
 
               <div className="journeys__body">
                 <div className="journeys__meta">
-                  <span className="journeys__meta-item journeys__meta-item--duration">
+                  <div className="journeys__meta-item journeys__meta-item--duration">
                     <Image
                       src={CLOCK_ICON}
                       alt="Duration"
                       width={14}
                       height={14}
-                      className="journeys__icon"
                     />
-                    <span>{item.duration}</span>
-                  </span>
+                    <p>{item.duration}</p>
+                  </div>
 
-                  <span className="journeys__dot" aria-hidden="true" />
+                  <div className="journeys__dot" aria-hidden="true" />
 
-                  <span className="journeys__meta-item journeys__meta-item--level">
+                  <div className="journeys__meta-item journeys__meta-item--level">
                     <Image
                       src={item.level_icon}
                       alt="Difficulty level"
                       width={16}
                       height={14}
-                      className="journeys__icon"
                     />
-                    <span>{item.level}</span>
-                  </span>
+                    <p>{item.level}</p>
+                  </div>
                 </div>
 
-                <h3 className="journeys__title">{item.title}</h3>
+                <h3>{item.title}</h3>
               </div>
             </Link>
-          </Reveal>
-        ))}
-      </div>
-    </Section>
-  );
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  </Section>
+);
 }

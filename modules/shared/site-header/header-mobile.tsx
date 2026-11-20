@@ -10,7 +10,6 @@ export default function HeaderMobile({ items, logo, chat }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
-  // While the menu is open: lock page scroll and close on Escape.
   useEffect(() => {
     if (!open) return;
 
@@ -34,7 +33,6 @@ export default function HeaderMobile({ items, logo, chat }: HeaderProps) {
           {logo}
 
           <div className="flex items-center gap-2 md:gap-3">
-            {/* Tablet only. On phones the button is inside the menu. */}
             <div className="hidden md:block">
               <Button href="/experiences">Explore Experiences</Button>
             </div>

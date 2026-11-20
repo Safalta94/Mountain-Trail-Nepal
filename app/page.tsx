@@ -4,6 +4,7 @@ import { FeaturesBarSection } from "@/components/Homepage/features-bar-section";
 import { ExperiencesSection } from "@/components/Homepage/experiences-section";
 import { JourneysSection } from "@/components/Homepage/journeys-section";
 import { WhyTravelSection } from "@/components/Homepage/why-travel-section";
+import { LocalFavoritesSection } from "@/components/Homepage/local-favorites-section";
 import {
   getHeaderData,
   getViberHref,
@@ -31,7 +32,8 @@ export default async function Home() {
       <FeaturesBarSection features={homepage?.features} />
       <ExperiencesSection experiences={homepage?.experiences} />
       <JourneysSection journeys={homepage?.journeys}/>
-      <WhyTravelSection why-travel={homepage?.whyTravel} />  
+      <WhyTravelSection why-travel={homepage?.why_travel} />  
+      <LocalFavoritesSection localFavorites={homepage?.localFavorites} />
       </>
   );
 }

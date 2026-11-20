@@ -6,7 +6,7 @@ type RevealProps = {
   children: ReactNode;
   as?: ElementType;
   className?: string;
-  delay?: number; // ms, use delay={i * 150} in lists
+  delay?: number; 
 };
 
 export function Reveal({
@@ -21,7 +21,6 @@ export function Reveal({
     const el = ref.current;
     if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    // hide until it scrolls into view
     const hold = el.animate([{ opacity: 0 }, { opacity: 0 }], {
       duration: 1,
       fill: "forwards",

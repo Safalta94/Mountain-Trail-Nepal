@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/reveal";
 import type { HomepageFeatures } from "@/lib/api/homepage";
+import { Section } from "@/components/layouts/section";
+
 
 const FALLBACK_FEATURES: HomepageFeatures = {
-  section_type: "features",
   items: [
     {
       title: "Journeys for every budget",
@@ -41,34 +42,29 @@ export function FeaturesBarSection({
     ? features.items
     : FALLBACK_FEATURES.items;
 
-  return (
-    <section className="features-bar__section" aria-label="Why book with us">
-      <div className="container">
-        <ul className="features-bar__list">
+ return (
+  <Section className="features-bar__section" aria-label="Why book with us">
+      <div className="features-bar__list">
+        <ul>
           {items.map((item, i) => (
-            <Reveal
-              as="li"
-              key={`${item.title}-${i}`}
-              className="features-bar__item"
-              delay={i * 150}
-            >
-              <span className="features-bar__icon" aria-hidden="true">
+            <Reveal as="li" key={`${item.title}-${i}`} delay={i * 150}>
+              <div className="features-bar__icon" aria-hidden="true">
                 <Image
                   src={item.icon}
                   alt={`${item.title} icon`}
                   width={24}
                   height={24}
                 />
-              </span>
+              </div>
 
               <div className="features-bar__text">
-                <p className="features-bar__title">{item.title}</p>
-                <p className="features-bar__description">{item.description}</p>
+                <p>{item.title}</p>
+                <p>{item.description}</p>
               </div>
             </Reveal>
           ))}
         </ul>
       </div>
-    </section>
-  );
+  </Section>
+);
 }

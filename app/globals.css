@@ -52,11 +52,15 @@ body {
 
 @layer container {
   .container {
-    @apply w-full max-w-[1359px] mx-auto px-5;
+    @apply w-full max-w-[1359px] mx-auto py-10 md:py-0 px-5;
   }
 
   .container-header {
     @apply w-full max-w-[1395.25px] mx-auto px-5;
+  }
+
+   .container-small {
+    @apply w-full max-w-[1086px] mx-auto px-5 py-10 md:py-20;
   }
 }
 
@@ -202,6 +206,10 @@ html {
   @apply font-secondary text-trim text-white text-[36px] leading-10 tracking-[-0.5px] sm:text-[44px] sm:leading-[50px] md:text-[52px] md:leading-[58px] lg:text-[60px] lg:leading-[64px] lg:tracking-[-1px];
 }
 
+.banner__content h1 span {
+  @apply block;
+}
+
 .banner__search {
   @apply max-w-[598px] mx-auto mt-6 lg:mt-10;
 }
@@ -224,6 +232,18 @@ html {
   @apply flex flex-col gap-3;
 }
 
+.banner__trust-text p {
+  @apply font-primary text-trim leading-6 text-white;
+}
+
+.banner__trust-text p:first-of-type {
+  @apply text-base font-semibold;
+}
+
+.banner__trust-text p:last-of-type {
+  @apply text-sm font-medium text-white/70;
+}
+
 .banner__stars {
   @apply flex gap-[5.47px];
 }
@@ -240,29 +260,12 @@ html {
   @apply absolute inset-0;
 }
 
-.banner__star-bg {
+.banner__star-half img:first-child {
   @apply opacity-30;
 }
 
-.banner__star-fill {
+.banner__star-half img:last-child {
   clip-path: inset(0 50% 0 0);
-}
-
-.banner__trust-title,
-.banner__trust-subtitle {
-  @apply font-primary text-trim leading-6 text-white;
-}
-
-.banner__trust-title {
-  @apply text-base font-semibold;
-}
-
-.banner__trust-subtitle {
-  @apply text-sm font-medium text-white/70;
-}
-
-.banner__divider {
-  @apply hidden md:block w-px h-[35px] bg-white/30;
 }
 
 .banner__divider {
@@ -272,14 +275,14 @@ html {
 /* Features Bar Section */
 
 .features-bar__section {
-  @apply w-full bg-[#F7F7F8] py-8 lg:py-20;
+  @apply w-full bg-[#F7F7F8] lg:py-20;
 }
 
-.features-bar__list {
+.features-bar__list ul {
   @apply grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10;
 }
 
-.features-bar__item {
+.features-bar__list li {
   @apply flex items-center gap-3;
 }
 
@@ -295,26 +298,34 @@ html {
   @apply flex flex-col gap-4;
 }
 
-.features-bar__title {
-  @apply font-primary text-trim text-[13px] font-medium uppercase text-heading;
+.features-bar__text p {
+  @apply font-primary text-trim;
 }
 
-.features-bar__description {
-  @apply font-primary text-trim text-[13px] font-normal leading-5 text-body max-w-[251px];
+.features-bar__text p:first-of-type {
+  @apply text-[13px] font-medium uppercase text-heading;
+}
+
+.features-bar__text p:last-of-type {
+  @apply text-[13px] font-normal leading-5 text-body max-w-[251px];
 }
 
 /* Experiences Section */
 
 .experiences__section {
-  @apply relative overflow-hidden py-12 md:py-16 lg:py-20;
+  @apply relative overflow-hidden md:py-20 lg:py-20;
 }
 
-.experiences__container {
+/* .experiences__container {
   @apply relative z-10;
-}
+} */
 
 .experiences__leaf {
   @apply pointer-events-none absolute z-0 hidden select-none opacity-[0.35] min-[1700px]:block;
+}
+
+.experiences__leaf img {
+  @apply size-full;
 }
 
 .experiences__leaf--left {
@@ -333,17 +344,37 @@ html {
   @apply flex h-full flex-col;
 }
 
+
+/* Photo with soft drift */
+
 .experiences__media {
   @apply relative aspect-[437/283] w-full overflow-hidden;
 }
 
-.experiences__image {
+.experiences__media img {
   @apply object-cover;
+}
+
+.experiences__drift {
+  @apply absolute inset-0;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .experiences__drift {
+    @apply transition-transform duration-1000 ease-out;
+  }
+
+  .experiences__media:hover .experiences__drift {
+    transform: translate3d(var(--drift-x, 0px), var(--drift-y, 0px), 0)
+      scale(1.08);
+  }
 }
 
 .experiences__badge {
   @apply absolute left-4 top-4 flex h-7 items-center rounded-full bg-white px-[10px] font-primary text-trim text-sm font-medium text-body lg:left-5;
 }
+
+/* Card body */
 
 .experiences__body {
   @apply flex flex-1 flex-col gap-6 rounded-br-[28px] bg-[#F7F7F8] px-5 py-6 lg:gap-[30px] lg:rounded-br-[40px] lg:py-8;
@@ -353,29 +384,74 @@ html {
   @apply flex flex-1 flex-col gap-4 lg:gap-6;
 }
 
-.experiences__title {
+.experiences__text h2 {
   @apply font-primary text-trim text-lg font-normal leading-6 tracking-[-0.32px] text-heading lg:text-xl;
 }
 
-.experiences__description {
+.experiences__text p {
   @apply font-primary text-trim text-base font-normal leading-6 text-body;
 }
 
+/* Link: underline draws in, arrow glides right */
+
 .experiences__link {
-  @apply inline-flex items-center gap-2 self-start font-primary text-trim text-sm font-medium uppercase leading-[26px] text-primary;
+  @apply self-start;
 }
 
-/* .experiences__arrow {
-  @apply shrink-0 transition-transform duration-200;
-} */
+.experiences__link a {
+  @apply inline-flex items-center gap-2 font-primary text-trim text-sm font-medium uppercase leading-[26px] text-primary;
+}
 
-/* .experiences__link:hover .experiences__arrow {
-  @apply translate-x-0.5;
-} */
+.experiences__link span {
+  @apply relative inline-block leading-none;
+}
+
+.experiences__link span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.experiences__link svg {
+  transition: transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .experiences__card:hover .experiences__link span::after {
+    transform: scaleX(1);
+  }
+
+  .experiences__card:hover .experiences__link svg {
+    transform: translateX(5px);
+  }
+}
+
+.experiences__link a:focus-visible span::after {
+  transform: scaleX(1);
+}
+
+.experiences__link a:focus-visible svg {
+  transform: translateX(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .experiences__link span::after,
+  .experiences__link svg {
+    transition: none;
+  }
+}
 
 .experiences__cta {
   @apply mt-8 flex justify-center md:mt-10 lg:mt-[52px];
 }
+
 
 /* Journeys Section */
 
@@ -387,16 +463,28 @@ html {
   @apply grid w-full grid-cols-1 items-start gap-8 md:grid-cols-2 md:gap-6 lg:grid-cols-4;
 }
 
+.journeys__card a {
+  @apply flex flex-col gap-3 md:gap-6;
+}
+
 .journeys__media {
   @apply relative aspect-[322/369] w-full overflow-hidden rounded-br-[28px] lg:rounded-br-[40px];
 }
 
-.journeys__image {
-  @apply object-cover transition-transform duration-500 group-hover:scale-105;
+.journeys__media img {
+  @apply object-cover transition-transform duration-500;
+}
+
+.journeys__card:hover .journeys__media img {
+  @apply scale-105;
 }
 
 .journeys__body {
-  @apply flex flex-col gap-5;
+  @apply flex flex-col gap-3 md:gap-5;
+}
+
+.journeys__body h3 {
+  @apply font-primary text-trim text-[16px] font-normal leading-6 tracking-[-0.32px] text-heading md:text-lg lg:text-xl;
 }
 
 .journeys__meta {
@@ -404,7 +492,15 @@ html {
 }
 
 .journeys__meta-item {
-  @apply flex items-center gap-1.5 font-primary text-trim text-sm font-medium leading-6;
+  @apply flex items-center gap-1.5;
+}
+
+.journeys__meta-item img {
+  @apply shrink-0;
+}
+
+.journeys__meta-item p {
+  @apply font-primary text-trim text-[13px] font-medium leading-6 md:text-sm;
 }
 
 .journeys__meta-item--duration {
@@ -415,20 +511,8 @@ html {
   @apply text-[#02458B];
 }
 
-.journeys__icon {
-  @apply shrink-0;
-}
-
 .journeys__dot {
   @apply size-[7px] shrink-0 rounded-full bg-[#949494];
-}
-
-.journeys__title {
-  @apply font-primary text-trim text-lg font-normal leading-6 tracking-[-0.32px] text-heading lg:text-xl;
-}
-
-.journeys__card {
-  @apply flex flex-col gap-6;
 }
 
 /* Why Travel With Us Section */
@@ -443,11 +527,11 @@ html {
 }
 
 .why-travel__grid {
-  @apply grid w-full grid-cols-1 gap-4 mb-[52px] sm:grid-cols-2 sm:gap-6 lg:grid-cols-3;
+  @apply grid w-full grid-cols-1 gap-4 mb-[36px] md:mb-[52px] sm:grid-cols-2 sm:gap-6 lg:grid-cols-3;
 }
 
 .why-travel__card {
-  @apply relative flex h-full flex-col items-center gap-[30px] overflow-hidden rounded-[20px] bg-white p-6 text-center;
+  @apply relative flex h-full flex-col items-center gap-[30px] overflow-hidden rounded-[20px] bg-white p-6 text-center transition-colors duration-500 ease-out;
 }
 
 .why-travel__card--active {
@@ -455,47 +539,7 @@ html {
 }
 
 .why-travel__leaf {
-  @apply pointer-events-none absolute -bottom-8 -left-8 select-none opacity-10;
-}
-
-.why-travel__icon {
-  @apply relative z-10 flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#ECECEE];
-}
-
-.why-travel__card--active .why-travel__icon {
-  @apply bg-[#ECECEE]/10;
-}
-
-.why-travel__text {
-  @apply relative z-10 flex flex-col gap-[22px];
-}
-
-.why-travel__title {
-  @apply font-primary text-trim text-xl font-normal leading-6 tracking-[-0.32px] text-heading;
-}
-
-.why-travel__description {
-  @apply font-primary text-trim text-base font-normal leading-6 text-body;
-}
-
-.why-travel__card--active .why-travel__title {
-  @apply text-white;
-}
-
-.why-travel__card--active .why-travel__description {
-  @apply text-white/90;
-}
-
-.why-travel__card {
-  @apply relative flex h-full flex-col items-center gap-[30px] overflow-hidden rounded-[20px] bg-white p-6 text-center transition-colors duration-300;
-}
-
-.why-travel__card--active {
-  @apply bg-[#02458B];
-}
-
-.why-travel__leaf {
-  @apply pointer-events-none absolute bottom-0 left-0 select-none opacity-0 transition-opacity duration-300;
+  @apply pointer-events-none absolute bottom-0 left-0 select-none opacity-0 transition-opacity duration-500 ease-out;
 }
 
 .why-travel__card--active .why-travel__leaf {
@@ -503,13 +547,84 @@ html {
 }
 
 .why-travel__icon {
-  @apply relative z-10 flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#ECECEE] transition-colors duration-300;
+  @apply relative z-10 flex size-12 shrink-0 items-center justify-center rounded-xl bg-[#ECECEE] transition-colors duration-500 ease-out;
 }
 
-.why-travel__title {
-  @apply font-primary text-trim text-xl font-normal leading-6 tracking-[-0.32px] text-heading transition-colors duration-300;
+.why-travel__icon img {
+  @apply transition-[filter] duration-500 ease-out;
 }
 
-.why-travel__description {
-  @apply font-primary text-trim text-base font-normal leading-6 text-body transition-colors duration-300;
+.why-travel__card--active .why-travel__icon {
+  @apply bg-[#ECECEE]/10;
+}
+
+.why-travel__card--active .why-travel__icon img {
+  @apply brightness-0 invert;
+}
+
+.why-travel__text {
+  @apply relative z-10 flex flex-col gap-[22px];
+}
+
+.why-travel__text h3 {
+  @apply font-primary text-trim text-xl font-normal leading-6 tracking-[-0.32px] text-heading transition-colors duration-500 ease-out;
+}
+
+.why-travel__text p {
+  @apply font-primary text-trim text-base font-normal leading-6 text-body transition-colors duration-500 ease-out;
+}
+
+.why-travel__card--active .why-travel__text h3 {
+  @apply text-white;
+}
+
+.why-travel__card--active .why-travel__text p {
+  @apply text-white/90;
+}
+
+/* Local Favorites Section */
+
+.favorites__section {
+  @apply bg-[#02458B] md:py-20 lg:py-20;
+}
+
+.favorites__viewport {
+  @apply relative md:mt-10 lg:mt-[52px];
+}
+
+.favorites__embla {
+@apply overflow-hidden cursor-grab select-none active:cursor-grabbing;
+  margin-left: max(20px, calc((100% - 1352px) / 2));
+}
+
+.favorites__track {
+  @apply flex touch-pan-y;
+}
+
+.favorites__slide {
+  @apply min-w-0 shrink-0 grow-0 basis-auto pr-6;
+}
+
+.favorites__card {
+  @apply relative block h-[390px] w-[280px] overflow-hidden rounded-br-[28px] sm:w-[320px] lg:rounded-br-[40px];
+}
+
+.favorites__overlay {
+  @apply pointer-events-none absolute inset-0 bg-linear-to-t from-black/75 to-transparent to-60%;
+}
+
+.favorites__text {
+  @apply absolute inset-x-5 bottom-5 flex flex-col gap-2;
+}
+
+.favorites__text h3 {
+  @apply font-primary text-trim text-xl font-normal leading-6 tracking-[-0.32px] text-white;
+}
+
+.favorites__text p {
+  @apply font-primary text-trim text-base font-normal leading-6 text-white/90;
+}
+
+.favorites__next {
+  @apply absolute right-5 top-1/2 z-10 flex size-[41px] -translate-y-1/2 items-center justify-center rounded-full border border-white/45 bg-white/20 text-white backdrop-blur-sm transition-colors duration-300 hover:bg-white/30 lg:right-24;
 }

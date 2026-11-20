@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Section, SectionHeading } from "@/components/layouts/section";
+import { SectionHeading } from "@/components/layouts/section";
 import { Button } from "@/components/ui/button";
+import { Reveal } from "@/components/ui/reveal";
 import type { HomepageWhyTravel } from "@/lib/api/homepage";
 
 const FALLBACK_WHY_TRAVEL: HomepageWhyTravel = {
-  section_type: "why_travel",
   eyebrow: "Why travel with us",
   title: ["Meaningful experiences,", "guided by local knowledge"],
   description:
@@ -63,65 +63,58 @@ export function WhyTravelSection({
 
 const [activeIndex, setActiveIndex] = useState(0);
 
-  return (
-    <Section
-      id="why-travel"
-      className="why-travel__section"
-      containerClassName="why-travel__container"
-    >
-      <div className="why-travel__inner">
-        <SectionHeading
-          eyebrow={whyTravel.eyebrow}
-          title={whyTravel.title}
-          description={whyTravel.description}
-        />
+ return (
+  <section
+    id="why-travel"
+    className="why-travel__section"
+  >
+    <div className="container-small">
+    <div className="why-travel__inner">
+      <Reveal>
+      <SectionHeading
+        eyebrow={whyTravel.eyebrow}
+        title={whyTravel.title}
+        description={whyTravel.description}
+      />
+      </Reveal>
 
-        <div className="why-travel__grid">
-          {whyTravel.items.map((item, index) => {
-            const isActive = index === activeIndex;
+      <div className="why-travel__grid">
+      {whyTravel.items.map((item, index) => {
+        const isActive = index === activeIndex;
 
-            return (
-              <div
-                key={item.title}
-                tabIndex={0}
-                onMouseEnter={() => setActiveIndex(index)}
-                onFocus={() => setActiveIndex(index)}
-                className={`why-travel__card ${
-                  isActive ? "why-travel__card--active" : ""
-                }`}
-              >
-                <Image
-                  src="/images/why/leaf.svg"
-                  alt=""
-                  width={150}
-                  height={150}
-                  aria-hidden="true"
-                  className="why-travel__leaf"
-                />
-
-                <div className="why-travel__icon">
-                  <Image
-                    src={item.icon}
-                    alt=""
-                    width={24}
-                    height={24}
-                    className={isActive ? "brightness-0 invert" : ""}
-                  />
-                </div>
-
-                <div className="why-travel__text">
-                  <h3 className="why-travel__title">{item.title}</h3>
-                  <p className="why-travel__description">{item.description}</p>
-                </div>
+        return (
+          <Reveal key={item.title} className="h-full" delay={(index % 3) * 150}>
+            <div
+              tabIndex={0}
+              onMouseEnter={() => setActiveIndex(index)}
+              onFocus={() => setActiveIndex(index)}
+              className={`why-travel__card ${isActive ? "why-travel__card--active" : ""}`}
+            >
+              <div className="why-travel__leaf" aria-hidden="true">
+                <Image src="/images/why/leaf.svg" alt="" width={150} height={150} />
               </div>
-            );
-          })}
-        </div>
 
-        <Button href={whyTravel.cta.href} variant="primary">
-          {whyTravel.cta.label}
-        </Button>
+              <div className="why-travel__icon">
+                <Image src={item.icon} alt="" width={24} height={24} />
+              </div>
+
+              <div className="why-travel__text">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          </Reveal>
+        );
+      })}
       </div>
-    </Section>
-  );
+
+      <Reveal>
+      <Button href={whyTravel.cta.href} variant="primary">
+        {whyTravel.cta.label}
+      </Button>
+      </Reveal>
+    </div>
+    </div>
+  </section>
+);
 }

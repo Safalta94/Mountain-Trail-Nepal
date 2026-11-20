@@ -45,15 +45,14 @@ export function BannerSection({ hero = FALLBACK_HERO }: BannerSectionProps) {
           <div className="banner__main">
             <div className="banner__inner">
               <Reveal as="h1">
-                 <span className="block">{hero.heading}</span>
-                 <span className="block">{hero.sub_heading}</span>
+                <span>{hero.heading}</span>
+                <span>{hero.sub_heading}</span>
               </Reveal>
 
               <Reveal delay={150}>
-                <SearchForm
-                  placeholder={hero.search_placeholder}
-                  className="banner__search"
-                />
+                <div className="banner__search">
+                  <SearchForm placeholder={hero.search_placeholder} />
+                </div>
               </Reveal>
             </div>
           </div>
@@ -61,18 +60,9 @@ export function BannerSection({ hero = FALLBACK_HERO }: BannerSectionProps) {
           <Reveal delay={300}>
             <div className="banner__trust">
               <div className="banner__trust-item banner__trust-item--rating">
-                <Image
-                  src="/images/google.svg"
-                  alt="Google logo"
-                  width={34}
-                  height={35}
-                />
+                <Image src="/images/google.svg" alt="Google logo" width={34} height={35} />
                 <div className="banner__trust-text">
-                  <div
-                    className="banner__stars"
-                    role="img"
-                    aria-label={rating.title}
-                  >
+                  <div className="banner__stars" role="img" aria-label={rating.title}>
                     {Array.from({ length: FULL_STARS }).map((_, i) => (
                       <Image
                         key={i}
@@ -82,46 +72,33 @@ export function BannerSection({ hero = FALLBACK_HERO }: BannerSectionProps) {
                         height={13}
                       />
                     ))}
-                    <span className="banner__star-half">
+                    <div className="banner__star-half">
                       <Image
                         src="/images/star.svg"
                         alt="Star background"
                         width={13}
                         height={13}
-                        className="banner__star-bg"
                       />
                       <Image
                         src="/images/star.svg"
                         alt="Half star"
                         width={13}
                         height={13}
-                        className="banner__star-fill"
                       />
-                    </span>
+                    </div>
                   </div>
-                  <span className="banner__trust-title">{rating.title}</span>
-                  <span className="banner__trust-subtitle">
-                    {rating.subtitle}
-                  </span>
+                  <p>{rating.title}</p>
+                  <p>{rating.subtitle}</p>
                 </div>
               </div>
 
-              <span className="banner__divider" aria-hidden="true" />
+              <div className="banner__divider" aria-hidden="true" />
 
               <div className="banner__trust-item">
-                <Image
-                  src="/images/shield.svg"
-                  alt="Certification shield badge"
-                  width={24}
-                  height={24}
-                />
+                <Image src="/images/shield.svg" alt="Certification shield badge" width={24} height={24} />
                 <div className="banner__trust-text">
-                  <span className="banner__trust-title">
-                    {certification.title}
-                  </span>
-                  <span className="banner__trust-subtitle">
-                    {certification.subtitle}
-                  </span>
+                  <p>{certification.title}</p>
+                  <p>{certification.subtitle}</p>
                 </div>
               </div>
             </div>

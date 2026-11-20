@@ -1,5 +1,11 @@
 import { API_ENDPOINTS } from "./endpoints";
 
+export type HomepageCta = {
+  label: string;
+  href: string;
+}; 
+
+
 export type HomepageTrustItem = {
   title: string;
   subtitle: string;
@@ -16,73 +22,77 @@ export type HomepageHero = {
   certification: HomepageTrustItem;
 };
 
-export type HomepageFeatureItem = {
-  title: string;
-  description: string;
-  icon: string;
-};
-
 export type HomepageFeatures = {
-  section_type: "features";
-  items: HomepageFeatureItem[];
+  items: {
+    title: string;
+    description: string;
+    icon: string;
+  }[];
 };
 
-export type HomepageExperienceItem = {
-  title: string;
-  description: string;
-  image: string;
-  trips_count: number;
-  cta_label: string;
-  href: string;
-};
 
 export type HomepageExperiences = {
-  section_type: "experiences";
   eyebrow: string;
   title: string[];
   description: string;
-  items: HomepageExperienceItem[];
-  cta: { label: string; href: string };
+  items: {
+    title: string;
+    description: string;
+    image: string;
+    trips_count: number;
+    cta_label: string;
+    href: string;
+  }[];
+  cta: HomepageCta;
 };
 
-export type HomepageJourneyItem = {
-  title: string;
-  image: string;
-  duration: string; 
-  level: string; 
-  level_icon: string; 
-  href: string;
-};
 
 export type HomepageJourneys = {
-  section_type: "journeys";
   eyebrow: string;
   title: string[];
   description: string;
-  items: HomepageJourneyItem[];
-};
-
-export type HomepageWhyItem = {
-  title: string;
-  description: string;
-  icon: string;
+  items: {
+    title: string;
+    image: string;
+    duration: string;
+    level: string;
+    level_icon: string;
+    href: string;
+  }[];
 };
 
 export type HomepageWhyTravel = {
-  section_type: "why_travel";
   eyebrow: string;
   title: string[];
   description: string;
-  items: HomepageWhyItem[];
-  cta: { label: string; href: string };
+  items: {
+    title: string;
+    description: string;
+    icon: string;
+  }[];
+  cta: HomepageCta;
 };
+
+export type HomepageLocalFavorites = {
+  eyebrow: string;
+  title: string[];
+  description: string;
+  items: {
+    title: string;
+    subtitle: string;
+    image: string;
+    href: string;
+  }[];
+};
+
 
 export type HomepageData = {
   hero: HomepageHero;
   features?: HomepageFeatures;
   experiences?: HomepageExperiences;
   journeys?: HomepageJourneys;
-  whyTravel?: HomepageWhyItem;
+  why_travel?: HomepageWhyTravel;
+  localFavorites?: HomepageLocalFavorites;
 };
 
 const USE_MOCK_DATA = true;
