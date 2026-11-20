@@ -85,6 +85,19 @@ export type HomepageLocalFavorites = {
   }[];
 };
 
+export type HomepageTestimonials = {
+  eyebrow: string;
+  title: string[];
+  description: string;
+  items: {
+    quote: string;
+    rating: number; // e.g. 4.5
+    name: string;
+    location: string;
+    avatar: string;
+  }[];
+};
+
 
 export type HomepageData = {
   hero: HomepageHero;
@@ -93,6 +106,8 @@ export type HomepageData = {
   journeys?: HomepageJourneys;
   why_travel?: HomepageWhyTravel;
   localFavorites?: HomepageLocalFavorites;
+  testimonials?: HomepageTestimonials;
+
 };
 
 const USE_MOCK_DATA = true;
